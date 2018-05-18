@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="static/stomp.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+    <title>SpringBoot</title>
+</head>
+<body>
+Hellow SpringBoot
+
+<button id="sendMessage">sendMessage</button>
+<script>
+    function connect() {
+        var socket = new SockJS('/gg/ws_notice');
+        var stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            console.log(typeof frame);
+            stompClient.subscribe('/user/topic/messageList', function(message) {
+                console.log(message);
+            });
+            stompClient.subscribe('/user/topic/message', function(message) {
+                console.log(message);
+            });
+        });
+
+        return;
+    }
+
+    $(function(){
+        connect();
+
+        $("#sendMessage").click(function(){
+            var msgData = {
+                msg: 'msg'
+            };
+            $.ajax({
+                url: "/gg/sendMessage",
+                type: "POST",
+                data: msgData
+            });
+        })
+    });
+
+</script>
+</body>
+</html>

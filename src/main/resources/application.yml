@@ -1,0 +1,21 @@
+server: 
+   port: 8080
+   context-path: /gg
+spring:
+#  application:
+#    name: WebSocket
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+    multipart:
+      max-file-size: 50Mb
+      max-request-size: 50Mb
+#  resources:
+#    static-locations: classpath:/webapp,classpath:/resources
+#  mvc:
+#    static-path-pattern: /static/**
+#    view:
+#      prefix: classpath:/templates/
+#      suffix: .html
